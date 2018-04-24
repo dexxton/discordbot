@@ -1,4 +1,4 @@
-# trollboxbot by dest
+# Crubot by dest
 import requests
 import discord
 import asyncio
