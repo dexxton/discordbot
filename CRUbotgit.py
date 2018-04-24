@@ -12,7 +12,11 @@ bot = commands.Bot(command_prefix='!')
 async def on_ready():
     print ("011001100010001")
     print ("loading//.." + bot.user.name + ", Awaiting your command")
-
+    
+@bot.event
+async def on_member_join(member):
+    await bot.send_message(bot.get_channel('INSERTWELCOMECHANNELID'), " Welcome {0.mention}, I am the CRU Bot..Enjoy your time here. Please do your best to, message in the relevant chat server, and Respect one another. For a list of commands type !cmdlist" .format(member))
+    
 @bot.command(pass_context=True)
 async def ping(ctx):
     await bot.say(":ping_pong:  " + bot.user.name + ", Awaiting your command $$$")
