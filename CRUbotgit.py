@@ -2,11 +2,23 @@
 import requests
 import discord
 import asyncio
+import urllib2
+from bs4 import BeautifulSoup
 from discord.ext import commands
 from discord.ext.commands import Bot
 from discord import Game
 
 bot = commands.Bot(command_prefix='!')
+
+def CruPrice():
+cruprice = 'https://stocks.exchange/trade/CRU/BTC'
+page = urllib2.urlopen(cruprice)
+crupricedata = BeautifulSoup(page, ‘html.parser’)
+crudata = crupricedata.find(‘h1’, attrs={‘class’: ‘lastPrice’})
+pricecru = crudata.text.strip() # strip() is used to remove starting and trailing
+crubtc = crupricedata.find(‘div’, attrs={‘class’:’info’})
+CRUprice = crubtc.text
+return CRUprice
 
 @bot.event
 async def on_ready():
@@ -26,6 +38,7 @@ async def cmdlist(ctx):
     embed = discord.Embed(title="The following are valid commands", color=0x42f4cb)
     embed.add_field(name="!cmdlist", value="Get cmdlist message", inline=False)
     embed.add_field(name="!ping", value="Get a bot responce", inline=False)
+    embed.add_field(name="!cru", value="Get the price of Curium", inline=False)
     embed.add_field(name="!btc", value="Get the price of bitcoin", inline=False)
     embed.add_field(name="!ltc", value="Get the price of Litecoin", inline=False)
     embed.add_field(name="!difficulty", value="Get the current CRU difficulty ", inline=False)
@@ -35,6 +48,13 @@ async def cmdlist(ctx):
     embed.add_field(name="which coin gunna do goddest", value="type CRU", inline=False)
     await bot.say(embed=embed)
 
+@bot.command(pass_context=True)
+async def cru(ctx):
+    cruapi = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
+    cruprice = requests.get(cruapi)
+    value = cruprice.json()['last']['CRU_BTC']
+    await bot.say("Current Curium price is: $" + value)    
+    
 @bot.command(pass_context=True)
 async def btc(ctx):
     btcapi = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
