@@ -11,14 +11,14 @@ from discord import Game
 bot = commands.Bot(command_prefix='!')
 
 def CruPrice():
-cruprice = 'https://stocks.exchange/trade/CRU/BTC'
-page = urlopen(cruprice)
-crupricedata = BeautifulSoup(page, ‘html.parser’)
-crudata = crupricedata.find(‘h1’, attrs={‘class’: ‘lastPrice’})
-pricecru = crudata.text.strip() # strip() is used to remove starting and trailing
-crubtc = crupricedata.find(‘div’, attrs={‘class’:’info’})
-CRUprice = crubtc.text
-return CRUprice
+    cruprice = 'https://stocks.exchange/trade/CRU/BTC'
+    page = urlopen(cruprice)
+    crupricedata = BeautifulSoup(page, ‘html.parser’)
+    crudata = crupricedata.find(‘h1’, attrs={‘class’: ‘lastPrice’})
+    pricecru = crudata.text.strip() # strip() is used to remove starting and trailing
+    crubtc = crupricedata.find(‘div’, attrs={‘class’:’info’})
+    CRUprice = crubtc.text
+    return CRUprice
 
 @bot.event
 async def on_ready():
