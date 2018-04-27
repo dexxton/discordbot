@@ -45,7 +45,7 @@ async def cru(ctx):
     for pair in seaapi_res:
         if pair['market_name'] == 'CRU_BTC':
             price = pair['last']
-    await bot.say("Current price in BTC: " + price)
+    await bot.say("Curiums current price in BTC: " + price)
 
 @bot.command(pass_context=True)
 async def btc(ctx):
