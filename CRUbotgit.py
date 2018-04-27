@@ -2,7 +2,6 @@
 import requests
 import discord
 import asyncio
-
 from discord.ext import commands
 from discord.ext.commands import Bot
 from discord import Game
@@ -39,11 +38,15 @@ async def cmdlist(ctx):
 
 @bot.command(pass_context=True)
 async def cru(ctx):
-    btcapi = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
-    btcprice = requests.get(btcapi)
-    value = btcprice.json()['bpi']['USD']['rate']
-    await bot.say("Current Curium price is: $" + CRUprice)    
-    
+    seapi_url = 'https://stocks.exchange/api2/ticker/'
+    seaapi_json = requests.get(seapi_url)
+    seaapi_res = seaapi_json.json()
+    price = 'Unknown'
+    for pair in seaapi_res:
+        if pair['market_name'] == 'CRU_BTC':
+            price = pair['last']
+    await bot.say("Current price in BTC: " + price)
+
 @bot.command(pass_context=True)
 async def btc(ctx):
     btcapi = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
