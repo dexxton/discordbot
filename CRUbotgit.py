@@ -26,6 +26,7 @@ async def cmdlist(ctx):
     embed = discord.Embed(title="The following are valid commands", color=0x42f4cb)
     embed.add_field(name="!cmdlist", value="Get cmdlist message", inline=False)
     embed.add_field(name="!ping", value="Get a bot responce", inline=False)
+    embed.add_field(name="!cru", value="Get the price of Curium", inline=False)
     embed.add_field(name="!btc", value="Get the price of bitcoin", inline=False)
     embed.add_field(name="!ltc", value="Get the price of Litecoin", inline=False)
     embed.add_field(name="!difficulty", value="Get the current CRU difficulty ", inline=False)
