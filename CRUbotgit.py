@@ -10,6 +10,11 @@ from discord import Game
 
 bot = commands.Bot(command_prefix='!')
 
+while (count < 999999999999):
+   CruPrice()
+   count = count + 1
+   time.sleep(60)
+
 def CruPrice():
     cruprice = 'https://stocks.exchange/trade/CRU/BTC'
     page = urlopen(cruprice)
@@ -50,7 +55,6 @@ async def cmdlist(ctx):
 
 @bot.command(pass_context=True)
 async def cru(ctx):
-    CruPrice()
     await bot.say("Current Curium price is: $" + CRUprice)    
     
 @bot.command(pass_context=True)
