@@ -2,28 +2,12 @@
 import requests
 import discord
 import asyncio
-from urllib.request import urlopen
-from bs4 import BeautifulSoup
+
 from discord.ext import commands
 from discord.ext.commands import Bot
 from discord import Game
 
 bot = commands.Bot(command_prefix='!')
-count = 0
-while (count < 999999999999):
-   CruPrice()
-   count = count + 1
-   time.sleep(60)
-
-def CruPrice():
-    cruprice = 'https://stocks.exchange/trade/CRU/BTC'
-    page = urlopen(cruprice)
-    crupricedata = BeautifulSoup(page, "html.parser")
-    crudata = crupricedata.find("h1", attrs={"class": "lastPrice"})
-    pricecru = crudata.text.strip() # strip() is used to remove starting and trailing
-    crubtc = crupricedata.find("div", attrs={"class":"info"})
-    CRUprice = crubtc.text
-    return CRUprice
 
 @bot.event
 async def on_ready():
@@ -55,6 +39,9 @@ async def cmdlist(ctx):
 
 @bot.command(pass_context=True)
 async def cru(ctx):
+    btcapi = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
+    btcprice = requests.get(btcapi)
+    value = btcprice.json()['bpi']['USD']['rate']
     await bot.say("Current Curium price is: $" + CRUprice)    
     
 @bot.command(pass_context=True)
