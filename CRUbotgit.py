@@ -13,10 +13,10 @@ bot = commands.Bot(command_prefix='!')
 def CruPrice():
     cruprice = 'https://stocks.exchange/trade/CRU/BTC'
     page = urlopen(cruprice)
-    crupricedata = BeautifulSoup(page, ‘html.parser’)
-    crudata = crupricedata.find(‘h1’, attrs={‘class’: ‘lastPrice’})
+    crupricedata = BeautifulSoup(page, "html.parser")
+    crudata = crupricedata.find("h1", attrs={"class": "lastPrice"})
     pricecru = crudata.text.strip() # strip() is used to remove starting and trailing
-    crubtc = crupricedata.find(‘div’, attrs={‘class’:’info’})
+    crubtc = crupricedata.find("div", attrs={"class":"info"})
     CRUprice = crubtc.text
     return CRUprice
 
@@ -50,7 +50,7 @@ async def cmdlist(ctx):
 
 @bot.command(pass_context=True)
 async def cru(ctx):
-    CruPrice():
+    CruPrice()
     await bot.say("Current Curium price is: $" + CRUprice)    
     
 @bot.command(pass_context=True)
