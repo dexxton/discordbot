@@ -2,7 +2,7 @@
 import requests
 import discord
 import asyncio
-import urllib2
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -12,7 +12,7 @@ bot = commands.Bot(command_prefix='!')
 
 def CruPrice():
 cruprice = 'https://stocks.exchange/trade/CRU/BTC'
-page = urllib2.urlopen(cruprice)
+page = urlopen(cruprice)
 crupricedata = BeautifulSoup(page, ‘html.parser’)
 crudata = crupricedata.find(‘h1’, attrs={‘class’: ‘lastPrice’})
 pricecru = crudata.text.strip() # strip() is used to remove starting and trailing
