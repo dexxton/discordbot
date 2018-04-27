@@ -10,7 +10,6 @@ from discord import Game
 # "!" is the command trigger
 bot = commands.Bot(command_prefix='!')
 client = discord.Client()
-await client.change_presence(game=discord.Game(name='something goes here'))
 # on start up bot will print this data with its user name
 @bot.event
 async def on_ready():
@@ -123,7 +122,6 @@ async def on_message(message):
         userID = message.author.id
         await bot.send_message(message.channel, "<@%s> Here is the latest Masternode install guide https://e-rave.nl/curium-master-node-setup-cold-wallet" % (userID))
  
-
 async def updateprice():
     while True:
         seapi_url = 'https://stocks.exchange/api2/ticker/'
