@@ -50,10 +50,8 @@ async def cmdlist(ctx):
 
 @bot.command(pass_context=True)
 async def cru(ctx):
-    cruapi = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
-    cruprice = requests.get(cruapi)
-    value = cruprice.json()['last']['CRU_BTC']
-    await bot.say("Current Curium price is: $" + value)    
+    CruPrice():
+    await bot.say("Current Curium price is: $" + CRUprice)    
     
 @bot.command(pass_context=True)
 async def btc(ctx):
