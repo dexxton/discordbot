@@ -9,7 +9,7 @@ from discord.ext.commands import Bot
 from discord import Game
 
 bot = commands.Bot(command_prefix='!')
-
+count = 0
 while (count < 999999999999):
    CruPrice()
    count = count + 1
