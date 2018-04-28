@@ -9,7 +9,7 @@ from discord import Game
 
 # "!" is the command trigger
 bot = commands.Bot(command_prefix='!')
-
+client = discord.Client()
 # on start up bot will print this data with its user name
 @bot.event
 async def on_ready():
@@ -28,6 +28,7 @@ async def cmdlist(ctx):
     embed = discord.Embed(title="The following are valid commands", color=0x42f4cb)
     embed.add_field(name="!cmdlist", value="Get cmdlist message", inline=False)
     embed.add_field(name="!ping", value="Get a bot responce", inline=False)
+    embed.add_field(name="!cru", value="Get the price of Curium", inline=False)
     embed.add_field(name="!btc", value="Get the price of bitcoin", inline=False)
     embed.add_field(name="!ltc", value="Get the price of Litecoin", inline=False)
     embed.add_field(name="!difficulty", value="Get the current CRU difficulty ", inline=False)
@@ -49,6 +50,17 @@ async def installguide(ctx):
     await bot.say("Here is the latest masternode install guide version https://e-rave.nl/curium-master-node-setup-cold-wallet")
 
 # get the current price of btc
+@bot.command(pass_context=True)
+async def cru(ctx):
+    seapi_url = 'https://stocks.exchange/api2/ticker/'
+    seaapi_json = requests.get(seapi_url)
+    seaapi_res = seaapi_json.json()
+    price = 'Unknown'
+    for pair in seaapi_res:
+        if pair['market_name'] == 'CRU_BTC':
+            price = pair['last']
+    await bot.say("Curiums current price in BTC: " + price)
+
 @bot.command(pass_context=True)
 async def btc(ctx):
     btcapi = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
@@ -109,5 +121,24 @@ async def on_message(message):
     if message.content.startswith('install-guide'):
         userID = message.author.id
         await bot.send_message(message.channel, "<@%s> Here is the latest Masternode install guide https://e-rave.nl/curium-master-node-setup-cold-wallet" % (userID))
+ 
+async def updateprice():
+    while True:
+        seapi_url = 'https://stocks.exchange/api2/ticker/'
+        seaapi_json = requests.get(seapi_url)
+        seaapi_res = seaapi_json.json()
+        price = 'Unknown'
+        for pair in seaapi_res:
+            if pair['market_name'] == 'CRU_BTC':
+                price = pair['last']
+        await client.change_presence(game=discord.Game(name="CRU: " + price))
+        await asyncio.sleep(60)
 
+
+
+
+
+
+        
+bot.loop.create_task(updateprice())
 bot.run("TYPEYOURTOKENHERE")
